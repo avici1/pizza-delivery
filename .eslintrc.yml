@@ -9,4 +9,21 @@ parserOptions:
   sourceType: module
 plugins:
   - '@typescript-eslint'
-rules: {}
+  - 'eslint-plugin-import'
+rules: {
+  "import/extensions": [
+    "error",
+    {
+      "js": "never",
+      "ts": "never",
+    }
+  ],
+  "no-underscore-dangle": "off"
+}
+
+settings:
+  "import/resolver": {
+    "node": {
+      "extensions": [".js", ".ts"]
+    }
+  }

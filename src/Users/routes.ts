@@ -1,15 +1,13 @@
-import express from "express";
-import { BaseRoute } from "../Base/routes";
-import out from '../Helpers/out';
+import express from 'express';
+import UserController from './controller';
+import UserValidation from './validation';
 
-export default class UsersRoute extends BaseRoute {
-  constructor(app: express.Application) {
-    super(app, "users");
-  }
-  public initRoutes(): express.Application {
-    this.app.route("/users").get((req, res) => {
-        return out(res, 200, {"Basic": "Hello"}, "Hello", undefined);
-    });
-    return this.app;
-  }
-}
+const userController = new UserController();
+const userValidation = new UserValidation();
+const router = express.Router();
+
+router.post('/login', [userValidation.validateLogin, userController.login]);
+router.post('/signup', [userValidation.validateSignup, userController.signup]);
+router.delete('/logout/:tokenId', [userController.logout]);
+
+export default router;

@@ -1,61 +1,90 @@
+/* eslint-disable no-console */
+import { Request, Response } from 'express';
+import { v4 } from 'uuid';
 import BaseController from '../Base/controller';
-import UserModel from './model'
 import out from '../Helpers/out';
 import Jwt from '../Helpers/jwt';
 import Bcrypt from '../Helpers/bcrypt';
+import UserService from './service';
+import SessionService from '../session/service';
 
 export default class Controller extends BaseController {
-    
-    private jwt: Jwt;
-    private bcrypt: Bcrypt;
+  userService: UserService;
 
-    constructor(model: any) {
-        super(model);
-        this.jwt = new Jwt();
-        this.bcrypt = new Bcrypt();
+  sessionService: SessionService;
+
+  constructor() {
+    super('CU');
+    this.userService = new UserService();
+    this.sessionService = new SessionService();
+  }
+
+  login = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body;
+      const bcrypt = new Bcrypt(password);
+
+      const user = await this.userService.find({ email });
+      if (!user) {
+        return out(res, 404, undefined, 'User not found', `${this.getErrorCode()}0-0`);
+      }
+      const compareStatus = await bcrypt.compare(user[0].password);
+      if (!compareStatus) {
+        return out(res, 401, undefined, 'Invalid password', `${this.getErrorCode()}0-1`);
+      }
+      const tokenId = v4();
+      const payload = {
+        tokenId,
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      };
+      const jwt = new Jwt(payload);
+      const token = jwt.sign();
+      await this.sessionService.create({ user: user[0]._id, token, tokenId });
+      return out(res, 200, { token }, 'Login success', undefined);
+    } catch (error) {
+      console.log(error);
+      return out(res, 500, undefined, 'Internal Server Error', `${this.getErrorCode()}0-2`);
     }
-    
-    public async login(req: any, res: any): Promise<void> {
-        const { email, password } = req.body;
-        const user = await this.model.findOne({ email });
-        if (!user) {
-            return out(res, 404, {}, "User not found", undefined);
-        }
-        const compareStatus = await this.bcrypt.compare(password, user.password);
-        if (!compareStatus) {
-            return out(res, 401, {}, "Invalid password", undefined);
-        }
-        const payload = {
-            id: user._id,
-            email: user.email,
-            name: user.name,
-            role: user.role,
-        };
-        const token = this.jwt.sign(payload);
-        return out(res, 200, { token }, "Login success", undefined);
+  };
+
+  signup = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body;
+      const bcrypt = new Bcrypt(password);
+      const user = await this.userService.find({ email });
+      if (user.length > 0) {
+        return out(res, 400, undefined, 'User already exists', `${this.getErrorCode()}1-0`);
+      }
+      const hash = await bcrypt.hash();
+      const newUser = await this.userService.create({
+        ...req.body,
+        password: hash,
+      });
+      if (newUser) {
+        return out(res, 201, newUser, 'User created', undefined);
+      }
+      return out(res, 500, undefined, 'User not created', `${this.getErrorCode()}1-1`);
+    } catch (err) {
+      console.log(err);
+      return out(res, 500, undefined, 'Internal Server Error', `${this.getErrorCode()}1-2`);
     }
-    
-    public async register(req: any, res: any): Promise<void> {
-        const { email, name, password } = req.body;
-        const user = await this.model.findOne({ email });
-        if (user) {
-            return out(res, 400, {}, "User already exists", undefined);
-        }
-        const hash = await this.bcrypt.hash();
-        const newUser = new this.model({
-            email,
-            name,
-            password: hash,
-        });
-        const status = await newUser.save();
-        if (status) {
-            return out(res, 201, {}, "User created", undefined);
-        }
-        return out(res, 500, {}, "User not created", undefined);
+  };
+
+  logout = async (req: Request, res: Response) => {
+    try {
+      const { tokenId } = req.params;
+      const session = await this.sessionService.find({ tokenId });
+      const deleteToken = await this.sessionService.delete(session[0]._id);
+      if (deleteToken.deletedCount === 0) {
+        return out(res, 400, undefined, 'Something went wrong', `${this.getErrorCode()}2-0`);
+      }
+      return out(res, 200, undefined, 'Logged out successfully', undefined);
+    } catch (err) {
+      console.log(err);
+      return out(res, 500, undefined, 'Deleted successfully', `${this.getErrorCode}2-1`);
     }
-    
-    public async getUser(req: any, res: any): Promise<void> {
-        const { id } = req.params;
-        const user = await this.model.findById(id);
-        if (!user) {
+  };
 }

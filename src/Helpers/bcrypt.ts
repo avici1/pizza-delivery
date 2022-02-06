@@ -1,22 +1,23 @@
 import bcrypt from 'bcrypt';
 
 export default class Bcrypt {
-    private compareStatus: boolean;
-    private rawPassword: string;
+  private compareStatus: boolean;
 
-    constructor(rawPassword: string) {
-        this.rawPassword = rawPassword;
-        this.compareStatus = false;
-    }
+  private rawPassword: string;
 
-    public async compare(hash: string): Promise<boolean> {
-        this.compareStatus = await bcrypt.compare(this.rawPassword, hash);
-        return this.compareStatus;
-    }
+  constructor(rawPassword: string) {
+    this.rawPassword = rawPassword;
+    this.compareStatus = false;
+  }
 
-    public async hash(): Promise<string> {
-        const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(this.rawPassword, salt);
-        return hash;
-    }
+  public async compare(hash: string): Promise<boolean> {
+    this.compareStatus = await bcrypt.compare(this.rawPassword, hash);
+    return this.compareStatus;
+  }
+
+  public async hash(): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(this.rawPassword, salt);
+    return hash;
+  }
 }
