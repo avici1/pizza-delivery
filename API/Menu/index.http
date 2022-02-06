@@ -1,0 +1,11 @@
+@host = http://localhost:7000/menu
+
+POST {{host}}/add
+Content-Type: application/json
+Accept: application/json
+
+{
+    "price": 10.00,
+    "name": "Margerrita",
+    "description": "Margerritta pizza"
+}

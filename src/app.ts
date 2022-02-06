@@ -6,14 +6,17 @@ import debug from 'debug';
 import cors from 'cors';
 import dbInit from './Config/db';
 import env from './Config/env';
-// import BaseRoute from './Base/routes';
 import UsersRoute from './Users/routes';
+import MenuRoute from './Menu/routes';
 
 dbInit();
 
+// initiate express and set the JSON parser
 const app: Application = express();
 app.use(express.json());
-// const routes: Array<BaseRoute> = [];
+
+// configuring logging and debugging
+
 const debugLog: debug.IDebugger = debug('app:log');
 const loggerOptions: expressWinston.LoggerOptions = {
   transports: [new winston.transports.Console()],
@@ -27,11 +30,16 @@ if (!env.DEBUG) {
   loggerOptions.meta = false; // when not debugging, log requests as one-liners
 }
 
+// registering routes
 app.use('/users', UsersRoute);
+app.use('/menu', MenuRoute);
+
+// utility middleware
 app.use(expressWinston.logger(loggerOptions));
-app.set('port', process.env.PORT || 8000);
 app.use(cors());
 app.use(helmet());
+
+// creating an express server
 app.listen(env.PORT || 8000, (): void => {
   debugLog(`Server is running on port ${app.get('port')}`);
 });

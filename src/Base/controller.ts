@@ -4,9 +4,9 @@ import Service from './service';
 import out from '../Helpers/out';
 
 export default class {
-  private service: Service;
+  service: Service;
 
-  private errorCode: string;
+  errorCode: string;
 
   public getErrorCode(): string {
     return this.errorCode;
@@ -19,7 +19,7 @@ export default class {
     this.errorCode = errorCode;
   }
 
-  async create(req: Request, res: Response): Promise<any> {
+  create = async (req: Request, res: Response): Promise<any> => {
     try {
       const added = await this.service.create(req.body);
       if (added) {
@@ -36,11 +36,13 @@ export default class {
         `${this.errorCode}0-1`,
       );
     }
-  }
+  };
 
-  async findById(req: Request, res: Response): Promise<any> {
+  find = async (req: Request, res: Response): Promise<any> => {
     try {
-      const added = await this.service.find({ _id: req.params.id });
+      const { id } = req.params;
+      const query = id ? { _id: id } : {};
+      const added = await this.service.find(query);
       if (added) {
         return out(res, 200, added, 'OK', undefined);
       }
@@ -55,9 +57,9 @@ export default class {
         `${this.errorCode}1-1`,
       );
     }
-  }
+  };
 
-  async update(req: Request, res: Response): Promise<any> {
+  update = async (req: Request, res: Response): Promise<any> => {
     try {
       const updated = await this.service.update(req.params.id, req.body);
       if (updated.modifiedCount === 0) {
@@ -80,5 +82,30 @@ export default class {
         `${this.errorCode}2-1`,
       );
     }
-  }
+  };
+
+  delete = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const deleted = await this.service.delete(req.params.id);
+      if (deleted.deletedCount === 0) {
+        return out(
+          res,
+          400,
+          undefined,
+          'Something went wrong deleting',
+          `${this.errorCode}3-0`,
+        );
+      }
+      return out(res, 200, deleted, 'OK', undefined);
+    } catch (error) {
+      console.log(error);
+      return out(
+        res,
+        500,
+        undefined,
+        'Internal Server Error',
+        `${this.errorCode}3-1`,
+      );
+    }
+  };
 }

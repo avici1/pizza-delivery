@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 
 export default class Service {
-  private model;
+  private model: Model<any>;
 
   constructor(model: Model<any>) {
     this.model = model;
