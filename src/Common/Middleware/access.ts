@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Jwt from '../Helpers/jwt';
 import out from '../Helpers/out';
-import SessionService from '../session/service';
+import SessionService from '../../Session/service';
 
 export default class Access {
   private jwt: Jwt;

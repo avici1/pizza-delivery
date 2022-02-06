@@ -1,7 +1,7 @@
 import joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 
-import validator from '../Helpers/validator';
+import validator from '../Common/Helpers/validator';
 
 export default class Validation {
   private addSchema: joi.Schema;

@@ -1,4 +1,4 @@
-import BaseService from '../Base/service';
+import BaseService from '../Common/service';
 import MenuItemModel from './model';
 
 const menuItemModel = new MenuItemModel();

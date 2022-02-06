@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 import { Model } from 'mongoose';
 import Service from './service';
-import out from '../Helpers/out';
+import out from './Helpers/out';
 
 export default class {
   service: Service;

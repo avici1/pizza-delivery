@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import MenuItemController from './controller';
 import MenuItemValidation from './validation';
-import Access from '../Middleware/access';
+import Access from '../Common/Middleware/access';
 
 const router = Router();
 const menuItemController = new MenuItemController();

@@ -4,10 +4,11 @@ import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import debug from 'debug';
 import cors from 'cors';
-import dbInit from './Config/db';
-import env from './Config/env';
+import dbInit from './Common/Config/db';
+import env from './Common/Config/env';
 import UsersRoute from './Users/routes';
 import MenuRoute from './Menu/routes';
+import ShoppingCartRoute from './ShoppingCart/routes';
 
 dbInit();
 
@@ -33,6 +34,7 @@ if (!env.DEBUG) {
 // registering routes
 app.use('/users', UsersRoute);
 app.use('/menu', MenuRoute);
+app.use('/shoppingcart', ShoppingCartRoute);
 
 // utility middleware
 app.use(expressWinston.logger(loggerOptions));

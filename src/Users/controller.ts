@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import { Request, Response } from 'express';
 import { v4 } from 'uuid';
-import BaseController from '../Base/controller';
-import out from '../Helpers/out';
-import Jwt from '../Helpers/jwt';
-import Bcrypt from '../Helpers/bcrypt';
+import BaseController from '../Common/controller';
+import out from '../Common/Helpers/out';
+import Jwt from '../Common/Helpers/jwt';
+import Bcrypt from '../Common/Helpers/bcrypt';
 import UserService from './service';
-import SessionService from '../session/service';
+import SessionService from '../Session/service';
 
 export default class Controller extends BaseController {
   userService: UserService;

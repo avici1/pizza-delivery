@@ -1,6 +1,6 @@
-import BaseController from '../Base/controller';
+import BaseController from '../Common/controller';
 import MenuItemService from './service';
-import out from '../Helpers/out';
+import out from '../Common/Helpers/out';
 
 export default class Controller extends BaseController {
   menuItemService: MenuItemService;
