@@ -40,10 +40,10 @@ export default class Controller extends BaseController {
         name: user.name,
         role: user.role,
       };
-      const jwt = new Jwt(payload);
-      const token = jwt.sign();
+      const jwt = new Jwt();
+      const token = jwt.sign(payload);
       await this.sessionService.create({ user: user[0]._id, token, tokenId });
-      return out(res, 200, { token }, 'Login success', undefined);
+      return out(res, 200, { token, tokenId }, 'Login success', undefined);
     } catch (error) {
       console.log(error);
       return out(res, 500, undefined, 'Internal Server Error', `${this.getErrorCode()}0-2`);
@@ -85,6 +85,16 @@ export default class Controller extends BaseController {
     } catch (err) {
       console.log(err);
       return out(res, 500, undefined, 'Deleted successfully', `${this.getErrorCode}2-1`);
+    }
+  };
+
+  getAll = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userService.find({});
+      return out(res, 200, users, 'Users were found', undefined);
+    } catch (err) {
+      console.log(err);
+      return out(res, 500, undefined, 'Something went wrong', 'CU3-0');
     }
   };
 }

@@ -9,5 +9,6 @@ const router = express.Router();
 router.post('/login', [userValidation.validateLogin, userController.login]);
 router.post('/signup', [userValidation.validateSignup, userController.signup]);
 router.delete('/logout/:tokenId', [userController.logout]);
+router.get('/', [userController.find]);
 
 export default router;

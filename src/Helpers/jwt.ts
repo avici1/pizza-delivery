@@ -2,23 +2,25 @@
 import jwt from 'jsonwebtoken';
 import env from '../Config/env';
 
+interface ISession {
+  token: string;
+  tokenId: string;
+  user: string;
+}
 export default class Jwt {
-  private payload: string | object;
-
   private secret: jwt.Secret;
 
-  constructor(payload: string | object) {
-    this.payload = payload;
+  constructor() {
     this.secret = env.secret as jwt.Secret;
   }
 
-  public sign(): string {
-    const token = jwt.sign(this.payload, this.secret);
+  public sign(payload: string | object): string {
+    const token = jwt.sign(payload, this.secret);
     return token;
   }
 
-  public decode(token: string): String | object {
+  public decode(token: string): ISession {
     const status = jwt.verify(token, this.secret);
-    return status;
+    return status as ISession;
   }
 }

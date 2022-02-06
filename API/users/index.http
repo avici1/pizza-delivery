@@ -23,5 +23,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{host}}/logout/dd1c5816-7275-423e-a53a-0931a32adda2
+DELETE {{host}}/logout/8c6d0cda-6020-40ab-862a-ed328d3fa8f1
 Accept: application/json
+
+####
+GET {{host}}

@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import MenuItemController from './controller';
 import MenuItemValidation from './validation';
+import Access from '../Middleware/access';
 
 const router = Router();
 const menuItemController = new MenuItemController();
 const menuValidation = new MenuItemValidation();
+const access = new Access();
 
-router.get('/all', menuItemController.find);
-router.get('/:id', menuItemController.find);
-router.post('/add', [menuValidation.validateAdd, menuItemController.create]);
+router.get('/all', [access.isLoggedIn, menuItemController.getMenuItems]);
+router.post('/add', [menuValidation.validateAdd, menuItemController.addMenuItem]);
 
 export default router;

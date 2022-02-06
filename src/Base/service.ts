@@ -3,8 +3,8 @@ import { Model } from 'mongoose';
 export default class Service {
   private model: Model<any>;
 
-  constructor(model: Model<any>) {
-    this.model = model;
+  constructor(childModel: Model<any>) {
+    this.model = childModel;
   }
 
   create = async (data: Object) => {

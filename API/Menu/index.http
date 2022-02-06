@@ -4,8 +4,14 @@ POST {{host}}/add
 Content-Type: application/json
 Accept: application/json
 
+
 {
     "price": 10.00,
     "name": "Margerrita",
     "description": "Margerritta pizza"
 }
+
+###
+GET {{host}}/all
+Accept: application/json
+Authorization: Bearer {{token}}
