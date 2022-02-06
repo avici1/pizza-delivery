@@ -1,0 +1,27 @@
+@host = http://localhost:7000/users
+
+### Signup
+POST {{host}}/signup
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "alainchristian88@gmail.com",
+  "password": "nAdia123",
+  "streetAddress": "123 Main St",
+  "name": "Alain Christian"
+}
+
+###
+POST {{host}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "alainchristian87@gmail.com",
+  "password": "nAdia123"
+}
+
+###
+DELETE {{host}}/logout/dd1c5816-7275-423e-a53a-0931a32adda2
+Accept: application/json

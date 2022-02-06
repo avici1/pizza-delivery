@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 165
+ETag: W/"a5-YvB5R58Z2HLTp7YrkHuFK3dIOmI"
+Date: Sat, 05 Feb 2022 23:43:14 GMT
+Connection: close
+
+{"status":200,"data":{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDQxMDQ1OTR9.yBs2EdfXyMhEbc-dU6XMJLKtl_99AU6Hw9fLcsxlXOs"},"message":"Login success"}
