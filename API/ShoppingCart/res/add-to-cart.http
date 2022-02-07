@@ -1,0 +1,9 @@
+HTTP/1.1 201 Created
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 231
+ETag: W/"e7-z0R/6b4U1r8jr5pKX6CrWA/6S+g"
+Date: Mon, 07 Feb 2022 00:16:19 GMT
+Connection: close
+
+{"status":201,"data":{"products":[{"id":"61ffada8486c2803c94ca2af","qty":2,"_id":"620064d3e2aa0090be361956"}],"user":"61ff0b0dcd867a7ec73bcf49","total":20,"_id":"620064d3e2aa0090be361955","__v":0},"message":"Shopping cart created"}

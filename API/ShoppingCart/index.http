@@ -1,0 +1,18 @@
+@host = http://localhost:7000/shoppingcart
+
+POST {{host}}/add
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "products": [{
+        "id": "61ffada8486c2803c94ca2af",
+        "qty": 2
+    }]
+}
+
+###
+GET {{host}}
+Accept: application/json
+Authorization: Bearer {{token}}

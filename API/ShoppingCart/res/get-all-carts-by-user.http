@@ -1,0 +1,9 @@
+HTTP/1.1 201 Created
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 406
+ETag: W/"196-EaTfTBHt7xatk2Xl04c2y6QQ3TA"
+Date: Mon, 07 Feb 2022 00:15:21 GMT
+Connection: close
+
+{"status":201,"data":[{"_id":"620060887223d97e45bb6b78","products":[{"id":"61ffada8486c2803c94ca2af","qty":2,"_id":"620060887223d97e45bb6b79"}],"user":"61ff0b0dcd867a7ec73bcf49","total":0,"__v":0},{"_id":"6200645fc9ff9511e2bd27ce","products":[{"id":"61ffada8486c2803c94ca2af","qty":2,"_id":"6200645fc9ff9511e2bd27cf"}],"user":"61ff0b0dcd867a7ec73bcf49","total":20,"__v":0}],"message":"Shopping cart found"}

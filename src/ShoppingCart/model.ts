@@ -27,13 +27,13 @@ export default class Model {
     },
   });
 
-  private userModel: mongoose.Model<IProduct> = mongoose.model<IProduct>(
-    'User',
+  private shoppingCartModel: mongoose.Model<IProduct> = mongoose.model<IProduct>(
+    'ShoppingCart',
     this.schema,
   );
 
   public getShoppingCartModel(): mongoose.Model<IProduct> {
-    return this.userModel;
+    return this.shoppingCartModel;
   }
 
   public getSchema(): mongoose.Schema<IProduct> {
