@@ -9,6 +9,7 @@ import env from './Common/Config/env';
 import UsersRoute from './Users/routes';
 import MenuRoute from './Menu/routes';
 import ShoppingCartRoute from './ShoppingCart/routes';
+import OrdersRoute from './orders/routes';
 
 dbInit();
 
@@ -35,6 +36,7 @@ if (!env.DEBUG) {
 app.use('/users', UsersRoute);
 app.use('/menu', MenuRoute);
 app.use('/shoppingcart', ShoppingCartRoute);
+app.use('/orders', OrdersRoute);
 
 // utility middleware
 app.use(expressWinston.logger(loggerOptions));

@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 interface IMenuItem {
     price: number;
     name: string;
-    description: string;
+  description: string;
+  productId: string;
+  priceId: string;
 }
 
 export default class Model {
@@ -17,6 +19,14 @@ export default class Model {
       required: true,
     },
     description: {
+      type: String,
+      required: true,
+    },
+    productId: {
+      type: String,
+      required: true,
+    },
+    priceId: {
       type: String,
       required: true,
     },

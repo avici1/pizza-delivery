@@ -3,16 +3,17 @@
 POST {{host}}/add
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token2}}
 
 {
     "products": [{
-        "id": "61ffada8486c2803c94ca2af",
-        "qty": 2
+        "id": "62010563d6443971bd88bfc9",
+        "qty": 2,
+        "priceId": "price_1KQVaxIRW0vBopkJkMeF95Jj"
     }]
 }
 
 ###
 GET {{host}}
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token2}}

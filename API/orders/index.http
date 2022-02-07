@@ -1,0 +1,10 @@
+@host = http://localhost:7000/orders
+
+POST {{host}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token2}}
+
+{
+    "cartId": "62010581d6443971bd88bfcd"
+}

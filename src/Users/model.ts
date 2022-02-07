@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   streetAddress: string;
   password: string;
+  stripeCustomerId: string;
 }
 export default class Model {
   private schema = new mongoose.Schema<IUser>({
@@ -21,6 +22,10 @@ export default class Model {
       required: true,
     },
     password: {
+      type: String,
+      required: true,
+    },
+    stripeCustomerId: {
       type: String,
       required: true,
     },

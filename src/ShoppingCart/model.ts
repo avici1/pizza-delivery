@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
 type product = {
-    id: mongoose.Types.ObjectId,
-    qty: Number
+  id: mongoose.Types.ObjectId,
+  qty: Number,
+  priceId: string,
+
 }
 
 export interface IProduct {
@@ -16,6 +18,7 @@ export default class Model {
     products: [{
       id: mongoose.Types.ObjectId,
       qty: Number,
+      priceId: String,
     }],
     user: {
       type: String,

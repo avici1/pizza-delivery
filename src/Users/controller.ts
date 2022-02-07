@@ -7,16 +7,20 @@ import Jwt from '../Common/Helpers/jwt';
 import Bcrypt from '../Common/Helpers/bcrypt';
 import UserService from './service';
 import SessionService from '../Session/service';
+import Stripe from '../Common/Helpers/stripe';
 
 export default class Controller extends BaseController {
   userService: UserService;
 
   sessionService: SessionService;
 
+  stripe: Stripe;
+
   constructor() {
     super('CU');
     this.userService = new UserService();
     this.sessionService = new SessionService();
+    this.stripe = new Stripe();
   }
 
   login = async (req: Request, res: Response) => {
@@ -59,9 +63,15 @@ export default class Controller extends BaseController {
         return out(res, 400, undefined, 'User already exists', `${this.getErrorCode()}1-0`);
       }
       const hash = await bcrypt.hash();
+      const stripeCustomer = await this.stripe.createCustomer({
+        email,
+        name: req.body.name,
+      });
+      console.log(stripeCustomer);
       const newUser = await this.userService.create({
         ...req.body,
         password: hash,
+        stripeCustomerId: stripeCustomer.id,
       });
       if (newUser) {
         return out(res, 201, newUser, 'User created', undefined);

@@ -6,9 +6,9 @@ Accept: application/json
 
 
 {
-    "price": 10.00,
-    "name": "Margerrita",
-    "description": "Margerritta pizza"
+    "price": 15.00,
+    "name": "Peperroni 10 inch",
+    "description": "Peperonni pizza"
 }
 
 ###
