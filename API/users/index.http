@@ -6,7 +6,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "alainchristian89@gmail.com",
+  "email": "mugishaalainc@gmail.com",
   "password": "nAdia123",
   "streetAddress": "123 Main St",
   "name": "Alain Christian"
@@ -18,7 +18,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "alainchristian89@gmail.com",
+  "email": "mugishaalainc@gmail.com",
   "password": "nAdia123"
 }
 

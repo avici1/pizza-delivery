@@ -7,16 +7,19 @@ type product = {
 
 }
 
-export interface IProduct {
+export interface IShoppingCart {
   products: product[];
   user: mongoose.Types.ObjectId;
   total: Number;
 }
 
 export default class Model {
-  private schema = new mongoose.Schema<IProduct>({
+  private schema = new mongoose.Schema<IShoppingCart>({
     products: [{
-      id: mongoose.Types.ObjectId,
+      id: {
+        type: mongoose.Types.ObjectId,
+        ref: 'menu',
+      },
       qty: Number,
       priceId: String,
     }],
@@ -30,16 +33,16 @@ export default class Model {
     },
   });
 
-  private shoppingCartModel: mongoose.Model<IProduct> = mongoose.model<IProduct>(
+  private shoppingCartModel: mongoose.Model<IShoppingCart> = mongoose.model<IShoppingCart>(
     'ShoppingCart',
     this.schema,
   );
 
-  public getShoppingCartModel(): mongoose.Model<IProduct> {
+  public getShoppingCartModel(): mongoose.Model<IShoppingCart> {
     return this.shoppingCartModel;
   }
 
-  public getSchema(): mongoose.Schema<IProduct> {
+  public getSchema(): mongoose.Schema<IShoppingCart> {
     return this.schema;
   }
 }

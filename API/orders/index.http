@@ -3,8 +3,8 @@
 POST {{host}}
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{token2}}
+Authorization: Bearer {{token3}}
 
 {
-    "cartId": "62010581d6443971bd88bfcd"
+    "cartId": "6201b1a7a0a621323252fd1d"
 }

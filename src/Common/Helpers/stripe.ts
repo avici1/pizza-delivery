@@ -8,12 +8,16 @@ interface ICharge {
     qty: number;
   }[];
   customer: string | null;
+  payment_intent_data: {
+    metadata: object
+  };
 }
 
 interface ICustomer {
   email: string;
   name: string;
 }
+
 export default class Stripe {
   private stripeInstance: StripeInstance;
 
@@ -32,6 +36,7 @@ export default class Stripe {
       cancel_url: 'http://localhost:7000/cancel_url',
       success_url: 'http://localhost:7000/success_url',
       customer: raw.customer as string,
+      payment_intent_data: raw.payment_intent_data as any,
     });
     return session;
   };
@@ -51,6 +56,16 @@ export default class Stripe {
 
   createPrice = async (raw: any): Promise<any> => {
     const result = await this.stripeInstance.prices.create(raw);
+    return result;
+  };
+
+  constructEvent = (raw: any, signature: string, secret: string): any => {
+    const result = this.stripeInstance.webhooks.constructEvent(raw, signature, secret);
+    return result;
+  };
+
+  getPaymentIntent = async (paymentIntentId: string): Promise<any> => {
+    const result = await this.stripeInstance.paymentIntents.retrieve(paymentIntentId);
     return result;
   };
 }

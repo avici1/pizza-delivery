@@ -10,11 +10,17 @@ import UsersRoute from './Users/routes';
 import MenuRoute from './Menu/routes';
 import ShoppingCartRoute from './ShoppingCart/routes';
 import OrdersRoute from './orders/routes';
+import WebhooksRoute from './webhooks/routes';
 
 dbInit();
 
-// initiate express and set the JSON parser
+// initiate express
 const app: Application = express();
+
+// raw express body parser
+app.use('/webhooks', WebhooksRoute);
+
+//  setting the JSON parser
 app.use(express.json());
 
 // configuring logging and debugging

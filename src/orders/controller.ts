@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// import { v4 } from 'uuid';
 import ShoppingCartService from '../ShoppingCart/service';
 import UserService from '../Users/service';
 import out from '../Common/Helpers/out';
@@ -29,6 +28,11 @@ export default class Orders {
       const payLink = await this.stripe.charge({
         customer: user[0].stripeCustomerId,
         lineItems,
+        payment_intent_data: {
+          metadata: {
+            cartId,
+          },
+        },
       });
       return out(res, 200, payLink, 'Payment done', undefined);
     } catch (error) {
